@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
+  include ApplicationHelper
+
   before_action :set_locale
-  include SessionsHelper
-  include ExamsHelper
+  before_action :authenticate_user!
 
   private
   def set_locale
@@ -16,7 +18,6 @@ class ApplicationController < ActionController::Base
     return if logged_in?
 
     store_location
-    flash[:danger] = t "please_login"
     redirect_to login_url
   end
 end

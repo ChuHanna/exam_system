@@ -3,8 +3,7 @@ class SubjectsController < ApplicationController
   before_action :logged_in_user
 
   def index
-    @subjects = Subject.includes(:user)
-                       .all.page(params[:page]).per Settings.show_5
+    @subjects = Subject.includes(:user).all
   end
 
   def edit; end
@@ -16,25 +15,11 @@ class SubjectsController < ApplicationController
   end
 
   def create
-    @subject = current_user.subjects.build subject_params
-    if @subject.save
-      flash[:success] = t "success_subject"
-      redirect_to subject_url
-    else
-      flash[:danger] = t "fail_subject"
-      render :new
-    end
   end
 
   def update; end
 
   def destroy
-    if @subject.destroy
-      flash[:success] = t "deleted"
-    else
-      flash[:danger] = t "fail_delete"
-    end
-    redirect_to request.referer || subjects_path
   end
 
   private

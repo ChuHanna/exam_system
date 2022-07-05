@@ -1,18 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= full_title yield(:title) %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title><%= full_title yield(:title) %></title>
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
-    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
-    <%= render "layouts/shim" %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <%= render "layouts/header" %>
-    <div class="container">
-       <%= render partial: "layouts/messages" %>
-       <%= yield %>
+  <div id="wrapper">
+    <%= render partial: "layouts/flash" %>
+    <% if user_signed_in? %>
+      <%= render "layouts/sidebar" %>
+      <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+          <%= render "layouts/topbar" %>
+          <div class="container-fluid">
+            <%= yield %>
+          </div>
+        </div>
+        <%= render "layouts/footer" %>
+      </div>
+    <% else %>
+      <%= yield %>
+    <% end %>
     </div>
   </body>
 </html>

@@ -4,12 +4,12 @@ class ExamsController < ApplicationController
   before_action :load_questions, only: %i(new create show)
 
   def index
-    @exam = Exam.all.page(params[:page]).includes(:subject, :user)
-                .per Settings.show_5
+    # @q = Exam.all
+    @pagy, @exams = pagy(Exam.order_by_created_at, items: Settings.show_5)
   end
 
   def show
-    @questions_exams = @exam.questions_exams.includes(:subject, :user)
+    @questions_exams = @exam.questions_exams.includes(:topic, :user)
                             .page(params[:page])
                             .per Settings.show_5
   end
@@ -22,7 +22,7 @@ class ExamsController < ApplicationController
 
   def create
     @exam = Exam.new exam_params
-    @exam.user_id = current_user.id
+    @exam.user.id = current_user.id
     if @exam.save
       flash[:success] = t "success_exam"
       redirect_to exams_path

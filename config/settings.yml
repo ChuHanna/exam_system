@@ -7,3 +7,13 @@ min_pass: 6
 max_name_subject: 200
 min_des: 20
 max_des: 1000
+logo_mini:
+  image: "TLU_Logo.png"
+  size: "60x60"
+language_image:
+  vi: "VN.png"
+  en: "English.png"
+  alt: "..."
+  size: "37x35"
+demo_profile_image: "undraw_profile.svg"
+background_image: "exam_system_.png"

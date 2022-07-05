@@ -14,4 +14,8 @@ module ApplicationHelper
       "toastr.info"
     end
   end
+
+  def pagy_t key, **opts
+    ::I18n.t(key, **opts)
+  end
 end

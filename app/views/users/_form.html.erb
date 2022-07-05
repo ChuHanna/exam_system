@@ -7,7 +7,7 @@
   <%= form.text_field :email %>
 
   <%= form.label :role, t(".role"), class: "required"  %>
-  <%= form.select :role, User.roles.keys %>
+  <%= form.select :role, [] %>
 
   <%= form.label :password, t(".pass"), class: "required"  %>
   <%= form.password_field :password, class: "form-control" %>

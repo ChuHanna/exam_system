@@ -1,7 +1,0 @@
-<% if logged_in? %>
-  <%= image_tag 'image470372.jpg', class: "image_style" %>
-  <%= t ".welcome" %>
-<% else %>
-  <%= image_tag 'image470372.jpg', class: "image_style" %>
-  <%= link_to t(".sign_in"), login_path, class: "btn btn-lg btn-info rounded" %>
-<% end %>

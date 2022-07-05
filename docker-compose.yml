@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  db:
+    platform: linux/amd64
+    image: mysql:8.0.28
+    container_name: exam_system_db
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+    env_file:
+      - .env
+    restart: always
+  app:
+    build: .
+    container_name: exam_system
+    depends_on:
+      - db
+      - redis
+    command: /bin/bash -c "bundle install && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    env_file:
+      - .env
+    volumes:
+      - bundle:/bundle
+      - .:/myapp
+    ports:
+      - 3000:3000
+    tty: true
+    stdin_open: true
+    restart: always
+  redis:
+    image: redis
+    container_name: exam_redis
+    command: redis-server
+    ports:
+      - 6479:6379
+volumes:
+  mysql-data: {}
+  bundle: {}

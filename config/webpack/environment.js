@@ -1,12 +1,9 @@
 const { environment } = require('@rails/webpacker')
-const webpack = require('webpack')
+var webpack = require('webpack');
 
-environment.plugins.append('Provide',
-  new webpack.ProvidePlugin({
-    $: 'jquery',
-    jQuery: 'jquery',
-    'window.jQuery': 'jquery',
-    Popper: ['popper.js', 'default']
-  })
-)
+environment.plugins.append('Provide', new webpack.ProvidePlugin({
+  $: 'jquery/src/jquery', // I've also tried with just 'jquery' rather than referring specifically to the src folder.
+  jQuery: 'jquery/src/jquery' // Same comment as above.
+}));
+
 module.exports = environment
