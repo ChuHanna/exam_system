@@ -1,12 +1,14 @@
 <div class="nested-fields">
-  <%= f.label :ans, t(".answer") %>
-  <%= f.text_field :ans %>
-
-  <%= f.label :content, t(".content")%>
-  <%= f.text_field :content %>
-
-  <%= f.label :check, t(".check") %>
-  <%= f.select :check, Answer.checks.keys %>
-
-  <%= link_to_remove_association t(".remove_answer"), f %>
+  <div>
+    <%= f.label :description, t(".answer"), class: "required" %>
+    <%= f.text_field :description, class: "form-control" %>
+  </div>
+  <div class="flex">
+    <%= f.label :check, t(".correct") %>
+    <%= f.check_box :check, :as => :boolean, class:"w-25" %>
+  </div>
+  <%= link_to_remove_association f do %>
+    <i class="fa-solid fa-trash-can"></i>
+    <%= t ".remove_answer" %>
+  <% end %>
 </div>

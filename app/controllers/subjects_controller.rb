@@ -1,9 +1,10 @@
 class SubjectsController < ApplicationController
-  before_action :find_by_subject, only: %i(edit destroy)
-  before_action :logged_in_user
+  before_action :find_by_subject, only: %i(show edit destroy)
+  authorize_resource
 
   def index
-    @subjects = Subject.includes(:user).all
+    @q = Subject.ransack(params[:q])
+    @pagy, @subjects = pagy(@q.result(distinct: true).order_by_created_at.includes([:user]), items: Settings.show_10)
   end
 
   def edit; end

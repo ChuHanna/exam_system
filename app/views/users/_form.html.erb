@@ -1,19 +1,59 @@
-<%= form_for @user do |form| %>
-  <%= render "shared/error_messages", object: form.object %>
-  <%= form.label :name, t(".name") %>
-  <%= form.text_field :name %>
-
-  <%= form.label :email, t(".email"), class: "required"  %>
-  <%= form.text_field :email %>
-
-  <%= form.label :role, t(".role"), class: "required"  %>
-  <%= form.select :role, [] %>
-
-  <%= form.label :password, t(".pass"), class: "required"  %>
-  <%= form.password_field :password, class: "form-control" %>
-
-  <%= form.label :password_confirmation, t(".conf"), class: "required"  %>
-  <%= form.password_field :password_confirmation, class: "form-control" %>
-
-  <%= form.submit yield(:button_text), class: "btn btn-primary" %>
+<%= form_for @user, data: { turbo: false }  do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+  <div class="row">
+    <div class="col-xl-8">
+      <div class="row form-group forms-sample">
+        <div class="col-xl-3">
+          <%= f.label :name, t(".name"), class: "required" %>
+        </div>
+        <div class="col-xl-9">
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+      </div>
+      <div class="row form-group forms-sample">
+        <div class="col-xl-3">
+          <%= f.label :email, t(".email"), class: "required" %>
+        </div>
+        <div class="col-xl-9">
+          <%= f.text_field :email, class: "form-control" %>
+        </div>
+      </div>
+      <div class="row form-group forms-sample">
+        <div class="col-xl-3">
+          <%if current_user.admin_role? %>
+            <%= f.label :role, t(".role"), class: "required" %>
+          <%end%>
+        </div>
+        <div class="col-xl-9">
+          <%= f.select :role, options_for_select(User.roles.keys, selected: "trainee"),
+            {include_blank: false}, class: "js-mention form-control" %>
+        </div>
+      </div>
+      <div class="row form-group forms-sample">
+        <div class="col-xl-3">
+          <%= f.label :password, t(".pass"), class: "required" %>
+        </div>
+        <div class="col-xl-9">
+          <%= f.password_field :password, class: "form-control" %>
+        </div>
+      </div>
+      <div class="row form-group forms-sample">
+        <div class="col-xl-3">
+          <%= f.label :password_confirmation, t(".conf"), class: "required" %>
+        </div>
+        <div class="col-xl-9">
+          <%= f.password_field :password_confirmation, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="row">
+      <div class="col-xl-5">
+      </div>
+      <div class="col-xl-3">
+        <%= f.submit yield(:button_text), class: "btn btn-primary mr-2" %>
+      </div>
+    </div>
+  </div>
 <% end %>

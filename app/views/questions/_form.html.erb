@@ -1,21 +1,66 @@
-<%= form_for @question do |f| %>
+<%= form_for @question, data: { turbo: false }  do |f| %>
   <%= render "shared/error_messages", object: f.object %>
-  <div>
-    <%= f.label :content, t(".content"), class: "required" %>
-    <%= f.text_field :content %>
-  </div>
-  <div>
-    <p><strong><%= t ".answer" %></strong></p>
-
-    <div id="answers">
-      <%= f.fields_for :answers do |answer| %>
-        <%= render "answer_fields", f: answer %>
-      <% end %>
-      <div class="links">
-        <%= link_to_add_association t(".add_answer"), f, :answers %>
+  <div class="row">
+    <div class="col-xl-6">
+      <div class="row form-group forms-sample">
+        <div class="col-xl-3">
+          <%= f.label :topic, t(".topic"), class: "required" %>
+        </div>
+        <div class="col-xl-9">
+          <%= f.select :topic_id, options_for_select(Topic.pluck(:name, :id)), class: "form-control" %>
+        </div>
+      </div>
+      <div class="row form-group forms-sample">
+        <div class="col-xl-3">
+          <%= f.label :description, t(".description"), class: "required" %>
+        </div>
+        <div class="col-xl-9">
+          <%= f.text_field :description, class: "form-control" %>
+        </div>
+      </div>
+      <div class="row form-group forms-sample">
+        <div class="col-xl-3">
+          <%= f.label :question_type, t(".question_type"), class: "required"%>
+        </div>
+        <div class="col-xl-9">
+          <%= f.select :question_type, options_for_select(Question.question_types.keys), class: "form-control" %>
+        </div>
+      </div>
+      <div class="row form-group forms-sample">
+        <div class="col-xl-3">
+          <%= f.label :level, t(".level"), class: "required" %>
+        </div>
+        <div class="col-xl-9">
+          <%= f.select :level, options_for_select(Question.levels.keys), class: "form-control" %>
+        </div>
+      </div>
+      <div class="row form-group forms-sample">
+        <%= f.fields_for :answers do |answer| %>
+          <div class="nested-fields">
+            <div>
+              <%= answer.label :description, t(".answer"), class: "required" %>
+              <%= answer.text_field :description, class: "form-control" %>
+            </div>
+            <div class="flex">
+              <%= answer.label :check, t(".correct") %>
+              <%= answer.check_box :check, :as => :boolean, class:"w-25" %>
+            </div>
+            <%= link_to_remove_association answer do %>
+              <i class="fa-solid fa-trash-can"></i>
+              <%= t ".remove_answer" %>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="links">
+          <%= link_to_add_association f, :answers do %>
+            <i class="fas fa-plus"></i>
+            <%= t ".add_ans" %>
+          <% end %>
+        </div>
       </div>
     </div>
-
   </div>
-  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  <div>
+    <%= f.submit yield(:button_text), class: "btn btn-primary mr-2" %>
+  </div>
 <% end %>

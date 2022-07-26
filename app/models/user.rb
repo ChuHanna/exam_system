@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :exams
   has_many :topics
   has_many :subjects
+  has_many :records
 
   validates :email, presence: true
   validates :name, presence: true

@@ -51,8 +51,8 @@ en:
       cancel: "Cancel"
       logout: "Logout"
     sidebar:
-      title: "FCOV'S BOT"
-      dashboard: "Dashboard"
+      title: "EXAM SYSTEM"
+      dashboard: "Report"
       languages: "Languages"
       messages: "Messages"
       admin: "Admin"
@@ -86,6 +86,11 @@ en:
       logout: "Logout"
       search_for: "Search for..."
       search: "Search"
+  static_pages:
+    dashboard:
+      pie_chart: "The graph shows the ratio of the number of exams of the subjects"
+      pie_chart_1: "The graph shows the ratio of points"
+      column_chart: "Graph showing average test scores across subjects"
   users:
     edit:
       header: "Editing User"
@@ -93,10 +98,14 @@ en:
       name: "Name"
       email: "Email"
       password: "Password"
+      title: "Edit profile"
+      edit_user: "Edit profile"
+      button_text: "Edit"
     new:
       header: "Add a new user"
       title: "Add a new user"
       buttontext: "Create a new account"
+      create_user: "Create a new account"
     form:
       name: "Name"
       email: "Email"
@@ -112,11 +121,25 @@ en:
       email: "Email: "
       table: "Profile"
       add_user: "add user"
+    index:
+      title: "List users"
+      create: "Add a new user"
+      no_: "No"
+      name: "Name"
+      email: "Email"
+      role: "Role"
+      status: "Status"
+      updated_or_deleted: "Updated/Deleted at"
+      action: "Action"
+    create:
+      save_user: "Successfully, added new user"
+      fail_save: "Failed, can't add new user"
   subjects:
     new:
       title: "Add a new subject"
       header: "New subject"
       button_text: "Create a new subject"
+      create_subject: "Add a new subject"
     form:
       name: "Name: "
       description: "Description: "
@@ -135,6 +158,25 @@ en:
       des: "Describe"
       del: "Delete"
       new: "+New"
+      title: "List subjects"
+      create: "Add a new subject"
+      no_: "No"
+      name: "Name"
+      description: "Description"
+      user_name: "User name"
+      topic_name: "Topics"
+      action: "Action"
+    search:
+      user: "User"
+      all: "All"
+      name: "Name of subject"
+      input_name: "Input name"
+      description: "Description"
+      input_description: "Input description"
+      start_date: "Created at to: "
+      end_date: "Created at from: "
+      search: "Search"
+      reset: "Cancel"
     subject:
       delete: "Delete"
       sure: "delete?"
@@ -143,9 +185,10 @@ en:
       title: "Questions"
       header: "Questions"
       add_question: "+new question"
+      create: "Create new question"
     new:
       title: "Question"
-      button_text: "Questions"
+      button_text: "Create a new question"
       header: "Questions"
     edit:
       title: "Edit question"
@@ -164,11 +207,17 @@ en:
       answer: "Answer:"
       content: "Content"
       add_answer: "Add new answer"
+      add_ans: "Add new answer"
+      level: "Level"
+      question_type: "Question type"
+      topic: "Topic"
     answer_fields:
       answer: "Answer: "
       content: "Content"
       check: "Answer is right or wrong"
       remove_answer: "Remove answer"
+    create:
+      message_success: "Create question success"
   exams:
     exam:
       question: "Question"
@@ -191,6 +240,14 @@ en:
       del: "Delete"
       user: "User create"
       table: "List exam"
+      create: "Add a new exam"
+      id: "ID"
+      subject: "Subject"
+      topic_name: "Topic"
+      user_name: "User"
+      time: "Time do exam"
+      action: "Action"
+
     new:
       title: "New Exam"
       button_text: "Create a new exam"
@@ -198,6 +255,26 @@ en:
     show:
       questions: "Count questions: "
       code: "Code exam"
+      time_remaining: "Time remaining"
+      title: "Exam"
+      submit: "Submit"
+      time: "Time do exam"
+      score: "Score: %{score}"
+      right: "Right: %{score}/%{count}"
+      question: "Question %{index}: %{des}"
+      user: "User do exam: %{user}"
+      button_export_pdf: "Download as pdf"
+      title: "Exam"
+    question:
+      question: "Question %{index}: %{des}"
+    search:
+      topic: "Topic"
+      all: "All"
+      user: "User"
+      start_date: "Created at to: "
+      end_date: "Created at from: "
+      search: "Search"
+      reset: "Cancel"
   questions_exams:
     questions_exams:
       code_exam: "Code exam"
@@ -213,6 +290,42 @@ en:
     show:
       header: "Questions of exam"
       questions: "Questions"
+  topics:
+    index:
+      no_: "NO"
+      name: "Name of topic"
+      des: "Description"
+      duration: "Duration(minutes)"
+      user_name: "User name"
+      subject_name: "Subject"
+      updated_or_deleted: "Time updated/deleted"
+      action: "Actions"
+      title: "List exams"
+      create: "Create new exam"
+      start: "Start"
+    new:
+      button_text: "Create a new topic"
+      create_topic: "Create a new topic"
+    form:
+      description: "Description"
+      name: "Name"
+      subject: "Subject"
+      duration: "Duration(minutes)"
+    search:
+      user: "User create"
+      subject: "Subject"
+      all: "All"
+      description: "Description"
+      input_description: "Input description"
+      start_date: "Created at to: "
+      end_date: "Created at from: "
+      search: "Search"
+      reset: "Cancel"
+  pagy:
+    nav:
+      next: "Next ›"
+      prev: "‹ Prev"
+      gap: "…"
   success_exam: "Success"
   fail_exam: "Fail"
   exam_not_found: "Exam not found"
@@ -237,3 +350,7 @@ en:
   fail_subject: "Create subject fail"
   updated_successfully: "Update successfully"
   updated_failed: "Update failed"
+  submit_success: "Submit success"
+  submit_fail: "Submit fail"
+  success_topic: "Submit success"
+  success_message: "success"

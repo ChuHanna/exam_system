@@ -1,15 +1,18 @@
 <% provide :title, t(".title") %>
+
 <h1 class="h3 mb-2 text-gray-800"><%= t".title" %></h1>
 
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <%= render "messages/search" %>
+    <%= render "exams/search" %>
   </div>
   <div class="card-body">
-    <%= link_to(new_exam_path, class: "nav-link") do %>
-      <i class="fas fa-plus-circle"></i>
-      <%= t ".create" %>
-    <% end %>
+    <% if can? :manage, Exam %>
+      <%= link_to(new_exam_path, class: "nav-link") do %>
+        <i class="fas fa-plus-circle"></i>
+        <%= t ".create" %>
+      <% end %>
+    <%end%>
     <div class="table-responsive">
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
@@ -18,6 +21,8 @@
             <th><%= t ".subject" %></th>
             <th><%= t ".topic_name" %></th>
             <th><%= t ".user_name" %></th>
+            <th><%= t ".question_number" %></th>
+            <th><%= t ".score" %></th>
             <th><%= t ".time" %></th>
             <th><%= t ".action" %></th>
           </tr>
@@ -30,17 +35,21 @@
                 <td><%= truncate(exam.topic.subject.description, length: 15) %></td>
                 <td><%= truncate(exam.topic.name, length: 15) if exam.topic %></td>
                 <td><%= truncate(exam.user.name, length: 15) if exam.user.name %></td>
-                <td><%= get_time_exam(exam) %></td>
+                <td><%= exam.questions_exams.count %></td>
+                <td><%= exam.result.score if exam.result %>/<%= exam.questions_exams.count%></td>
+                <td><%= spent_time(exam.time_end, exam.time_start) unless exam.time_end == nil %></td>
                 <td center>
-                  <%= link_to( "#", class: "btn-info btn-circle btn-sm") do %>
-                    <i class="fas fa-eye"></i>
-                  <% end %>
-                  <%= link_to("#", class: "btn-primary btn-circle btn-sm") do %>
-                    <i class="fas fa-edit"></i>
-                  <% end %>
-                  <%= link_to("#", class: "btn-danger btn-circle btn-sm") do %>
-                    <i class="fa-solid fa-trash"></i>
-                  <% end %>
+                  <%if (can? :read, Exam) && exam.result %>
+                    <%= link_to( exam, class: "btn-info btn-circle btn-sm") do %>
+                      <i class="fas fa-eye"></i>
+                    <% end %>
+                  <%end%>
+                  <% if can? :manage, Exam %>
+                    <%= link_to("#", class: "btn-danger btn-circle btn-sm") do %>
+                      <i class="fas fa-trash"></i>
+                    <% end %>
+                  <%end%>
+                  <%= link_to t(".start"), exam, class:"btn btn-success button", id:"exam" unless exam.result && exam.result.score %>
                 </td>
               </tr>
             <% end %>

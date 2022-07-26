@@ -9,6 +9,7 @@
 
     <title><%= full_title yield(:title) %></title>
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
@@ -19,8 +20,11 @@
       <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
           <%= render "layouts/topbar" %>
-          <div class="container-fluid">
-            <%= yield %>
+          <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10"><%= yield %></div>
+            <div class="col-1"></div>
+
           </div>
         </div>
         <%= render "layouts/footer" %>

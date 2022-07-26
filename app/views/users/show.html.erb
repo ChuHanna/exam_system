@@ -9,5 +9,5 @@
     <tr><td><%= t".role" %></td><td><%= @user.role %></td></tr>
     <tr><td><%= t".email" %></td><td><%= @user.email %></td></tr>
   </table>
-  <%= link_to t(".add_user"), new_user_path, class: "btn btn-outline-success" %>
+  <%= link_to t("users.edit.edit_user"), edit_user_path(@user), class: "btn btn-outline-success" %>
 </section>

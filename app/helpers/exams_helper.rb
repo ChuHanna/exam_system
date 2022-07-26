@@ -25,7 +25,10 @@ module ExamsHelper
     end
   end
 
-  def get_time_exam exam
+  # spent_time(exam.time_end, exam.time_start)
 
+  def spent_time finish, start
+    time = finish.to_i - start.to_i
+    "#{time / 60} m #{time % 60} s"
   end
 end

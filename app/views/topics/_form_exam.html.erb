@@ -1,0 +1,11 @@
+<%= form_for(:exam, url: exams_path, method: :post)  do |f| %>
+  <div class="col-md-4 m-w-200">
+    <div class="jumbotron align-center card-image">
+      <%= image_tag Settings.subject.link_image, class:"img-thumbnail img-responsive" %>
+      <p class="subject-name"><%= topic.subject.name %></p>
+      <p class="subject-name"><%= topic.name %></p>
+      <%= hidden_field_tag :topic_id, topic.id %>
+      <%= f.submit t(".exam"), class:"btn btn-md btn-primary" %>
+    </div>
+  </div>
+<% end %>

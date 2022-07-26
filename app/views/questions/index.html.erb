@@ -1,13 +1,58 @@
-<div class="container">
-  <% provide :title, t(".title") %>
-  <h2><%= t ".header" %></h2>
-  <%= link_to t(".add_question"), new_question_path, class: "btn btn-lg btn-light rounded" %>
-  <ul class="list-group">
-    <% if @questions.any? %>
-      <%= render @questions %>
-      <span>
-        <%= paginate @questions, class: "pagination" %>
-      </span>
-    <% end %>
-  </ul>
+<% provide :title, t(".title") %>
+<h1 class="h3 mb-2 text-gray-800"><%= t".title" %></h1>
+
+<div class="card shadow mb-4">
+  <div class="card-body">
+    <% if can? :manage, Question %>
+      <%= link_to(new_question_path, class: "nav-link") do %>
+        <i class="fas fa-plus-circle"></i>
+        <%= t ".create" %>
+      <% end %>
+    <%end%>
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th><%= t ".no_" %></th>
+            <th><%= t ".create_time" %></th>
+            <th><%= t ".question" %></th>
+            <th><%= t ".level" %></th>
+            <th><%= t ".question_type" %></th>
+            <th><%= t ".subject" %></th>
+            <th><%= t ".topic" %></th>
+            <th><%= t ".action" %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @questions.each_with_index do |question, index| %>
+            <% if can? :read, Question %>
+              <tr>
+                <td><%= index + 1 %></td>
+                <td><%= question.created_at.strftime Settings.index.time_format %></td>
+                <td><%= truncate(question.description, length: 20) %></td>
+                <td><%= question.level %></td>
+                <td><%= question.question_type %></td>
+                <td><%= truncate(question.topic.subject.name, length: Settings.topic.subject.length) %></td>
+                <td><%= truncate(question.topic.name, length: Settings.topic.subject.length) %></td>
+                <td center>
+                  <%= link_to( "#", class: "btn-info btn-circle btn-sm") do %>
+                    <i class="fas fa-eye"></i>
+                  <% end %>
+                  <% if can? :manage, Question %>
+                    <%= link_to(edit_question_path(question.id), class: "btn-primary btn-circle btn-sm") do %>
+                      <i class="fas fa-edit"></i>
+                    <% end %>
+                    <%= link_to(question_path(question.id), method: :delete, remote: true, data: {confirm: t(".confirm_delete")},class: "btn-info btn-circle btn-sm") do %>
+                      <i class="fas fa-trash-alt"></i>
+                    <%end%>
+                  <%end%>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+      <%== pagy_bootstrap_nav(@pagy) %>
+    </div>
+  </div>
 </div>

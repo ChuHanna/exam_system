@@ -31,7 +31,13 @@ COPY bin/yarn ./bin/yarn
 RUN bundle install
 
 COPY . .
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y nodejs \
+    npm
+RUN npm install --global yarn
+RUN npm install -g node-gyp
 RUN yarn install
+
 EXPOSE 3000
 
 CMD ["bash"]

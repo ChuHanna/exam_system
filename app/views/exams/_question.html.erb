@@ -1,0 +1,17 @@
+<li class="exam-questions">
+  <% if question.question_type_single_choice? %>
+    <% question.answers.each do |answer| %>
+      <div class="radio form-check">
+        <%= f.radio_button "question_#{question.id}", answer.id, :style=>"width: 10px;"  %>
+        <label><%= answer.description %></label>
+      </div>
+    <% end %>
+  <% elsif question.question_type_multiple_choice? %>
+    <% question.answers.each do |answer| %>
+      <div class="checkbox form-check">
+        <%= f.check_box "question_#{question.id}",  {multiple: true, :style=>"width: 10px;"}, answer.id, nil %>
+        <%= answer.description %>
+      </div>
+    <% end %>
+  <% end %>
+</li>

@@ -13,7 +13,12 @@ require("packs/bootstrap-datepicker")
 require("packs/datepicker")
 require("packs/repeat_type")
 require("packs/select2.min")
+require("packs/count_down")
 // require("packs/create_message")
 import "bootstrap";
 import jquery from "jquery";
+import "cocoon"
+import "chartkick/chart.js"
+
 window.$ = window.jquery = jquery
+global.toastr = require("toastr")

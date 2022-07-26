@@ -1,9 +1,10 @@
 class TopicsController < ApplicationController
-  before_action :find_by_topic, only: %i(edit destroy)
-  before_action :logged_in_user
+  before_action :find_by_topic, only: %i(show edit destroy)
+  authorize_resource
 
   def index
-    @topics = Topic.includes(:user).all
+    @q = Topic.ransack(params[:q])
+    @pagy, @topics = pagy(@q.result(distinct: true).order_by_created_at.includes([:user,:subject]), items: Settings.show_5)
   end
 
   def edit; end
@@ -11,14 +12,14 @@ class TopicsController < ApplicationController
   def show; end
 
   def new
-    @topic = topic.new
+    @topic = Topic.new
   end
 
   def create
     @topic = current_user.topics.build topic_params
     if @topic.save
       flash[:success] = t "success_topic"
-      redirect_to topic_url
+      redirect_to topics_path
     else
       flash[:danger] = t "fail_topic"
       render :new
@@ -38,7 +39,7 @@ class TopicsController < ApplicationController
 
   private
   def topic_params
-    params.require(:topic).permit topic::TOPIC_PARAMS
+    params.require(:topic).permit Topic::TOPIC_PARAMS
   end
 
   def find_by_topic

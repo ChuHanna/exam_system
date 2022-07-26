@@ -2,8 +2,10 @@ source "https://rubygems.org"
 git_source(:github){|repo| "https://github.com/#{repo}.git"}
 
 ruby "3.0.2"
+gem "activerecord-import"
 gem "bcrypt", "3.1.17"
 gem "bootsnap", ">= 1.4.2", require: false
+gem "cancancan"
 gem "cocoon"
 gem "config"
 gem "dotenv-rails"
@@ -18,9 +20,15 @@ gem "paranoia"
 gem "puma", "~> 3.11"
 gem "rails", "~> 6.0.0"
 gem "ransack"
+gem "roo"
 gem "sass-rails", "~> 5"
 gem "turbolinks", "~> 5"
+gem "toastr-rails"
 gem "webpacker", "~> 4.0"
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+gem "chartkick" # vẽ biểu đồ
+
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
@@ -31,7 +39,6 @@ group :development, :test do
 end
 
 group :development do
-  gem "bullet"
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "pry-rails"
   gem "spring"

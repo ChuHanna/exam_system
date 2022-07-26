@@ -1,5 +1,6 @@
 valid_email_regex: !ruby/regexp /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 show_5: 5
+show_10: 10
 max_name: 50
 min_email: 20
 max_email: 255
@@ -15,5 +16,19 @@ language_image:
   en: "English.png"
   alt: "..."
   size: "37x35"
+topic:
+  name:
+    length: 15
+  description: 20
+  subject:
+    length: 15
 demo_profile_image: "undraw_profile.svg"
 background_image: "exam_system_.png"
+import:
+  arr_items: "%w(xlsx csv xls)"
+index:
+  time_format: "%m-%d-%Y %l:%M %p"
+subject:
+  item: 6
+  admin_item: 6
+  link_image: "https://avatars.githubusercontent.com/u/4223"

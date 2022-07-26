@@ -7,10 +7,10 @@
   </a>
   <hr class="sidebar-divider my-0">
   <li class="nav-item">
-    <a class="nav-link" href="#">
+    <%= link_to(root_path, class: "nav-link") do%>
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span><%= t ".dashboard" %></span>
-    </a>
+    <%end%>
   </li>
   <% if current_user.admin_role? %>
     <li class="nav-item">
@@ -21,8 +21,10 @@
       <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header"><%= t ".account_mana" %></h6>
-          <%= link_to t(".list_account"), "#", class: "collapse-item" %>
-          <%= link_to t(".new_account"), "#", class: "collapse-item" %>
+          <%= link_to t(".list_account"), users_path, class: "collapse-item" %>
+          <%if can? :manage, User%>
+            <%= link_to t(".new_account"), new_user_path, class: "collapse-item" %>
+          <%end%>
         </div>
       </div>
     </li>
@@ -35,8 +37,10 @@
     <div id="collapseMess" class="collapse show" aria-labelledby="headingMess" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header"><%= t ".subject_mana" %></h6>
-        <%= link_to t(".new_subject"), '#', class: "collapse-item" %>
-        <%= link_to t(".list_subject"), '#', class: "collapse-item" %>
+        <%= link_to t(".list_subject"), subjects_path, class: "collapse-item" %>
+        <%if can? :manage, Subject%>
+          <%= link_to t(".new_subject"), new_subject_path, class: "collapse-item" %>
+        <%end%>
       </div>
     </div>
   </li>
@@ -48,8 +52,10 @@
     <div id="collapseWorkspace" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header"><%= t ".topic_mana" %></h6>
-        <%= link_to t(".list_topic"), "#", class: "collapse-item" %>
-        <%= link_to t(".new_topic"), "#", class: "collapse-item" %>
+        <%= link_to t(".list_topic"), topics_path, class: "collapse-item" %>
+        <%if can? :manage, Topic%>
+          <%= link_to t(".new_topic"), new_topic_path, class: "collapse-item" %>
+        <%end%>
       </div>
     </div>
   </li>
@@ -61,8 +67,10 @@
     <div id="collapseExam" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header"><%= t ".subject_mana" %></h6>
-        <%= link_to t(".new_exam"), "#", class: "collapse-item" %>
-        <%= link_to t(".list_exam"), "#", class: "collapse-item" %>
+        <%= link_to t(".list_exam"), exams_path, class: "collapse-item" %>
+        <%if can? :manage, Exam%>
+          <%= link_to t(".new_exam"), new_exam_path, class: "collapse-item" %>
+        <%end%>
       </div>
     </div>
   </li>

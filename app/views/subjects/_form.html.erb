@@ -1,11 +1,32 @@
-<%= form_for @subject do |s| %>
-  <%= render "shared/error_messages", object: s.object %>
-
-  <%= s.label :name, t(".name"), class: "required" %>
-  <%= s.text_field :name %>
-
-  <%= s.label :description, t(".description"), class: "required" %>
-  <%= s.text_field :description %>
-
-  <%= s.submit yield(:button_text), class: "btn btn-success" %>
+<%= form_for @subject, data: { turbo: false }  do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+  <div class="row">
+    <div class="col-xl-8">
+      <div class="row form-group forms-sample">
+        <div class="col-xl-3">
+          <%= f.label :name, t(".name"), class: "required" %>
+        </div>
+        <div class="col-xl-9">
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+      </div>
+      <div class="row form-group forms-sample">
+        <div class="col-xl-3">
+          <%= f.label :description, t(".description"), class: "required" %>
+        </div>
+        <div class="col-xl-9">
+          <%= f.text_field :description, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="row">
+      <div class="col-xl-5">
+      </div>
+      <div class="col-xl-3">
+        <%= f.submit yield(:button_text), class: "btn btn-primary mr-2" %>
+      </div>
+    </div>
+  </div>
 <% end %>

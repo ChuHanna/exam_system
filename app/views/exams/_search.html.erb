@@ -1,0 +1,54 @@
+<section>
+  <div class="container">
+    <%= search_form_for @q do |f| %>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col col-md-2">
+              <b><%= f.label :topic_id_eq, t(".topic") %></b>
+            </div>
+            <div class="col col-md-10">
+              <%= f.collection_select :topic_id_eq, Topic.all, :id, :name,
+                {include_blank: t(".all")}, class: "form-control search-slt" %>
+            </div>
+          </div>
+          <div class="row">
+          </div>
+          <div class="row">
+            <div class="col col-md-2">
+              <b><%= f.label :user_id_eq, t(".user") %></b>
+            </div>
+            <div class="col col-md-10">
+              <%= f.collection_select :user_id_eq, User.all, :id, :name,
+                {include_blank: t(".all")}, class: "form-control search-slt"  %>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col col-md-2">
+             <b><%= f.label :created_at_gteq , t(".start_date") %></b>
+            </div>
+            <div class="col col-md-4">
+              <%= f.date_field :created_at_gteq, as: :date, class: "form-control search-slt" %>
+            </div>
+            <div class="col col-md-2">
+              <b><%= f.label :created_at_lteq, t(".end_date") %></b>
+            </div>
+            <div class="col col-md-4">
+              <%= f.date_field :created_at_lteq, as: :date, class: "form-control search-slt" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-md-7">
+            </div>
+            <div class="col col-md-5">
+              <%= f.submit t(".search"), class: "btn btn-success text-white" %>
+              <%= link_to t(".reset"), request.path, class:"btn btn-secondary text-white", role: :button %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

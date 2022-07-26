@@ -1,20 +1,19 @@
-<%= form_for @exam do |f| %>
+<%= form_for @exam, data: { turbo: false } do |f|%>
   <%= render "shared/error_messages", object: f.object %>
-  <div>
-    <div class="form-group">
-      <%= f.label :subject_id, class: "required" %>
-      <%= f.select :subject_id, load_name_subject,
-        {id: "chosen-subject", class: "form-control", multiple: "true"} %>
-    </div>
-    <p><strong><%= t ".question" %></strong></p>
-    <div id="questions">
-      <%= f.fields_for :questions_exams do |questions_exam| %>
-        <%= render "questions_exam_fields", f: questions_exam %>
-      <% end %>
-      <div class="add">
-        <%= link_to_add_association t(".add_questions_exam"), f, :questions_exams %>
+  <div class="row">
+    <div class="col-xl-6">
+      <div class="row form-group forms-sample">
+        <div class="col-xl-3">
+          <%= f.label :topic_id, t(".topic"), class: "required" %>
+        </div>
+        <div class="col-xl-9">
+          <%= f.collection_select :topic_id, Topic.all, :id, :name,
+            {include_blank: false, prompt: t(".select_a_exam")}, class: "form-control" %>
+        </div>
       </div>
     </div>
   </div>
-  <%= f.submit yield(:button_text), class: "btn btn-success" %>
+  <div>
+    <%= f.submit yield(:button_text), name: "active", class: "btn btn-primary mr-2" %>
+  </div>
 <% end %>

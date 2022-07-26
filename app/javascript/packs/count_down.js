@@ -1,5 +1,8 @@
 $(document).on('turbolinks:load', function () {
+  console.log('zo')
+  console.log($('.user-exam'))
   if ($('.user-exam').length > 0) {
+    console.log($('.user-exam'))
     function timeConvert(num) {
       var minutes = num % 60;
       return minutes + ':' + '00';

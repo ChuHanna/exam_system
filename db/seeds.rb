@@ -39,7 +39,7 @@ if !Subject.find_by description: "Object-oriented programming"
     user_id: 1
   )
   Topic.create!(
-    name: "15 minutes test",
+    name: "[Object-oriented programming] 15 minutes test",
     description: "quick test",
     duration: 15,
     subject_id: s.id,
@@ -54,7 +54,7 @@ if !Subject.find_by description: "Computer Architecture"
     user_id: 1
   )
   Topic.create!(
-    name: "15 minutes test",
+    name: "[Computer Architecture]15 minutes test",
     description: "quick test",
     duration: 15,
     user_id: 1,
@@ -69,7 +69,7 @@ if !Subject.find_by description: "Software Engineering"
     user_id: 1
   )
   Topic.create!(
-    name: "15 minutes test",
+    name: "[Software Engineering]15 minutes test",
     description: "quick test",
     duration: 15,
     user_id: 1,
@@ -84,7 +84,7 @@ if !Subject.find_by description: "Project"
     user_id: 1
   )
   Topic.create!(
-    name: "15 minutes test",
+    name: "[Project] 15 minutes test",
     description: "quick test",
     duration: 15,
     user_id: 1,
@@ -99,7 +99,7 @@ if !Subject.find_by description: "Software testing"
     user_id: 1
   )
   Topic.create!(
-    name: "15 minutes test",
+    name: "[Software testing] 15 minutes test",
     description: "quick test",
     duration: 15,
     user_id: 1,
@@ -114,7 +114,7 @@ if !Subject.find_by description: "Linear Algebra"
     user_id: 1
   )
   Topic.create!(
-    name: "15 minutes test",
+    name: "[Linear Algebra] 15 minutes test",
     description: "quick test",
     duration: 15,
     user_id: 1,
@@ -129,7 +129,7 @@ if !Subject.find_by description: "Data Structure and Algorithms"
     user_id: 1
   )
   t = Topic.create!(
-    name: "15 minutes test",
+    name: "[Data Structure and Algorithms] 15 minutes test",
     description: "quick test",
     duration: 15,
     user_id: 1,

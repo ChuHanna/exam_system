@@ -1,10 +1,93 @@
-<% provide :title, @exam.id %>
+<% provide :title, t(".title") %>
 
-<section class="content-header">
-  <h1><%= t ".code" %><%= @exam.id %></h1>
-</section>
-<li class="list-group-item">
-  <b><% t ".questions" %></b>
-  <div class="float-right"><%= @exam.questions_exams.count %>
+<% if @exam.result %>
+  <h1 class="text-3xl font-bold align-center">
+    <%= @exam.topic.name %>
+  </h1>
+  <div class="row">
+    <div class="col-xl-8">
+    </div>
+    <div class="col-xl-4">
+      <div><%= t(".user", user: @exam.user.name) %>
+      </div>
+    </div>
   </div>
-</li>
+  <div class="row">
+    <div class="col-xl-8">
+    </div>
+    <div class="col-xl-4">
+      <%= t(".score",score: ((10/@exam.questions_exams.count)*@exam.result.score).round(2)) %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-8">
+    </div>
+    <div class="col-xl-4">
+      <%= t(".right", score: @exam.result.score, count:@exam.questions_exams.count) %>
+    </div>
+  </div>
+  <div>
+    <%@exam.questions.each_with_index do | q, index|%>
+      <div>
+        <ul>
+          <h4 class="text-lg font-bold">
+            <%= t(".question", index: index, des: q.description)%>
+          <h4>
+          <% q.answers.each do |ans| %>
+
+            <% if @user_answer_ids.include?(ans.id)%>
+              <%if ans.check %>
+                <li class="list-group-item list-group-item-success "><strong><%= ans.description%></strong></li>
+              <%else%>
+                <li class="list-group-item list-group-item-danger "><strong><%= ans.description%></strong></li>
+              <%end%>
+            <%else%>
+              <%if ans.check%>
+                <li class="list-group-item list-group-item-success ml-6"><%= ans.description%></li>
+              <%else%>
+                <li class="list-group-item ml-6"><%= ans.description%></li>
+              <%end%>
+            <% end %>
+          <%end%>
+        </ul>
+      </div>
+    <%end%>
+  </div>
+  <div class="row">
+    <div class="col-xl-10">
+    </div>
+    <div class="col-xl-2">
+      <%= link_to 'DOWNLOAD PDF', exam_path(@exam, format: :pdf) %>
+      <%= link_to ("#")  do %>
+        <%= t(".button_export_pdf") %>
+        <i class="fas fa-file-export"></i>
+      <%end%>
+    </div>
+  </div>
+<%else%>
+  <%= hidden_field_tag :duration, @exam.topic.duration %>
+  <div class="user-exam">
+    <h2 class="align-center"><%= @exam.topic.name %></h2>
+    <div class="timer">
+      <div><%= t ".time_remaining" %></div>
+      <div class="countdown align-center"></div>
+    </div>
+    <hr>
+    <%= form_for(:record, url: records_path)  do |f| %>
+      <ol class="exam-questions-list user-exam-questions-list">
+        <% @questions_exams.each_with_index do |question, index| %>
+          <strong><%= t(".question", index: index+1, des: question.description)%></strong>
+          <%= render "question", question: question, f: f %>
+        <% end %>
+      </ol>
+      <%= hidden_field_tag :exam_id, params[:id] %>
+      <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+
+      <%= f.submit t(".submit"), class: "btn btn-primary mr-2" %>
+        </div>
+        <div class="col-4"></div>
+    <% end %>
+  </div>
+<%end%>

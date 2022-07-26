@@ -20,7 +20,7 @@
           </li>
           <li>
             <span class="answer">
-              <% if current_user.suppervisor? %>
+              <% if current_user.trainer_role? %>
                 <% if question.answers.any? %>
                   <%= ".answer" %>
                   <ul>
